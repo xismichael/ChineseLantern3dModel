@@ -18,7 +18,7 @@
       scene.background = new THREE.Color(0xf7f6d5);
 
       const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
-      camera.position.set(0, 0, 150);
+      camera.position.set(0, 100, 200);
 
       const renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -28,7 +28,7 @@
       controls.enableDamping = true;
 
       //lights
-      scene.add(new THREE.AmbientLight(0xffffff, 0.75));
+      scene.add(new THREE.AmbientLight(0xffffff, 0.5));
       const dir = new THREE.DirectionalLight(0xffffff, 1);
       dir.position.set(25, 30, 20);
       scene.add(dir);
@@ -41,7 +41,13 @@
       const ropeTex   = texLoader.load('RopePaper.jpg');
       ropeTex.wrapS = ropeTex.wrapT = THREE.RepeatWrapping;
 
-      const paperMat  = new THREE.MeshStandardMaterial({ map: paperTex, metalness: 0, roughness: 0.9, side: THREE.DoubleSide });
+      const paperMat  = new THREE.MeshStandardMaterial({ map: paperTex, 
+        metalness: 0, 
+        roughness: 0.9, 
+        transparent: true, 
+        opacity: 0.65, 
+        side: THREE.DoubleSide 
+      });
       const goldMat   = new THREE.MeshStandardMaterial({ color: 0xffd062, metalness: 0.8, roughness: 0.3 });
       const tasselMat = new THREE.MeshStandardMaterial({ map: ropeTex, metalness: 0, roughness: 0.6 });
 
@@ -80,7 +86,7 @@
       loadPart('paper_shell.stl', paperMat, true);
       loadPart('frame.stl', goldMat);
       loadPart('handle.stl', goldMat);
-      loadPart('tassel.stl', tasselMat);
+      loadPart('tassel.stl', tasselMat, true);
 
       //animation
       window.addEventListener('resize', ()=>{
@@ -98,4 +104,12 @@
       animate();
     </script>
   </body>
+    <div style="position: absolute; top: 10px; left: 10px; z-index: 10; background: rgba(255,255,255,0.8); padding: 10px; border-radius: 8px;">
+  <h3>Links</h3>
+  <ul style="margin: 0; padding-left: 1em;">
+    <li><a href="G1-Final Report.docx.pdf" target="_blank">Report</a></li>
+    <li><a href="Procedural Chinese Lantern Using OpenSCAD.pptx.pdf" target="_blank">Presentation</a></li>
+    <li><a href="lantern.js" target="_blank">source code</a></li>
+  </ul>
+</div>
 </html>
